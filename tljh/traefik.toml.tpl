@@ -24,7 +24,7 @@ idleTimeout = "10m0s"
 
 [entryPoints]
   [entryPoints.http]
-  address = ":{{http['port']}}"
+  address = "{{ http.get('ip', '') }}:{{ http['port'] }}"
   {% if https['enabled'] %}
     [entryPoints.http.redirect]
     entryPoint = "https"
@@ -32,7 +32,7 @@ idleTimeout = "10m0s"
 
   {% if https['enabled'] %}
   [entryPoints.https]
-  address = ":{{https['port']}}"
+  address = "{{ https.get('ip', '') }}:{{ https['port'] }}"
   backend = "jupyterhub"
   [entryPoints.https.tls]
   {% if https['tls']['cert'] %}
